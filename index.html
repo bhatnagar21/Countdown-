@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   
+</head>
+<body>
+    <style>
+        
+:root {
+    -smaller: .78;
+ }
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html , body {
+    height: 100%;
+    margin: 0;
+    width: 100%;
+}
+body {
+    font-family: 'Times New Roman', Times, serif;
+    display: flex;
+    top: 60%;
+    
+}
+
+.container {
+    color: #333;
+    margin: 0 auto;
+    top: 60%;
+    text-align: center;
+    background-image: linear-gradient(-20deg, #fc6076 0%, #ff9a44 100%);
+}
+  
+
+h1{
+    font-weight: 600;
+    text-transform: capitalize;
+    letter-spacing: .124rem;
+    padding-top: 40%;
+    text-shadow: #39e4b1;
+
+}
+h1,li:hover{
+    color: #191ba1;
+    box-sizing: content-box;
+    transition: 0.4s ease-out;
+    cursor: pointer;
+
+}
+    
+
+li{
+    display: inline-block;
+    font-size: 1.5em;
+  list-style-type: none;
+  padding: 1em;
+  text-transform: uppercase;
+}
+li span {
+    display: block;
+    font-size: 4.5rem;
+  }
+  
+  .emoji {
+    display: none;
+    padding: 1rem;
+  }
+  
+  .emoji span {
+    font-size: 4rem;
+    padding: 0 .5rem;
+  }
+  
+  @media all and (max-width: 768px) {
+    h1 {
+      font-size: calc(1.5rem * var(--smaller));
+    }
+    
+    li {
+      font-size: calc(1.125rem * var(--smaller));
+    }
+    
+    li span {
+      font-size: calc(3.375rem * var(--smaller));
+    }
+  }
+    </style>
+    <div class="container">
+        <h1 id="headline">Countdown For Basant Panchami
+           <br>🪕🪷🦢</h1>
+             <div id="countdown">
+          <ul>
+            <li><span id="hours"></span>Hours</li>
+            <li><span id="minutes"></span>Minutes</li>
+            <li><span id="seconds"></span>Seconds</li>
+          </ul>
+        </div>
+        <div id="content" class="emoji">
+          <span>🥳</span>
+          <span>🎉</span>
+          <span>🎂</span>
+        </div>
+      </div>
+      <script>
+        (function () {
+            const second = 1000,
+                  minute = second * 60,
+                  hour = minute * 60,
+                  day = hour * 24;
+
+            let today = new Date(),
+                dd = String(today.getDate()).padStart(2, "0"),
+                mm = String(today.getMonth() + 1).padStart(2, "0"),
+                yyyy = today.getFullYear(),
+                nextYear = yyyy + 1,
+                dayMonth = "02/02",
+                birthday = dayMonth + "/2025"; // Set the target date to February 2, 2025
+
+            today = mm + "/" + dd + "/" + yyyy;
+            if (today > birthday) {
+                birthday = dayMonth + "/" + nextYear; // Update to next year if the date has passed
+            }
+
+            const countDown = new Date(birthday).getTime(),
+                x = setInterval(function() {    
+
+                    const now = new Date().getTime(),
+                          distance = countDown - now;
+
+                    document.getElementById("hours").innerText = Math.floor((distance % (day)) / (hour));
+                    document.getElementById("minutes").innerText = Math.floor((distance % (hour)) / (minute));
+                    document.getElementById("seconds").innerText = Math.floor((distance % (minute)) / second);
+
+                    // Do something later when date is reached
+                    if (distance < 0) {
+                        document.getElementById("headline").innerText = "It's Basant Panchami!";
+                        document.getElementById("countdown").style.display = "none";
+                        document.getElementById("content").style.display = "block";
+                        clearInterval(x);
+                    }
+                }, 1000); // Update every second
+        }());
+    </script>
+</body>
+
+</html>
